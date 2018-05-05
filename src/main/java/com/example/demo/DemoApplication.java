@@ -39,8 +39,6 @@ public class DemoApplication {
         System.out.println("timestamp: " + timestamp);
         System.out.println("nonce: " + nonce);
         System.out.println("echostr: " + echostr);
-        timestamp = "1525516592";
-        nonce = "3600989015";
         String[] vec = {TOKEN, timestamp, nonce};
         Arrays.sort(vec);
 

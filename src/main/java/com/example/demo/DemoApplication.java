@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import java.util.Arrays;
 @Controller
 @SpringBootApplication
 public class DemoApplication {
-    static final String TOKEN = "weixin";
+    private static final String TOKEN = "weixin";
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
@@ -34,16 +33,26 @@ public class DemoApplication {
                            @RequestParam("timestamp") String timestamp,
                            @RequestParam("nonce") String nonce,
                            @RequestParam("echostr") String echostr) {
+        StringBuilder buff = new StringBuilder();
         System.out.println("GET /certify");
         System.out.println("signature: " + signature);
         System.out.println("timestamp: " + timestamp);
         System.out.println("nonce: " + nonce);
         System.out.println("echostr: " + echostr);
+        timestamp = "1525516592";
+        nonce = "3600989015";
         String[] vec = {TOKEN, timestamp, nonce};
         Arrays.sort(vec);
-        String hashValue = DigestUtils.sha1Hex(StringUtils.join(vec));
+
+        for (String ele : vec) {
+            buff.append(ele);
+        }
+
+        String buffString = buff.toString();
+        System.out.println(buffString);
+        String hashValue = DigestUtils.sha1Hex(buffString);
         System.out.println("hashValue: " + hashValue);
-        String response = hashValue.equals(signature) ? echostr : hashValue;
-        return response;
+        String result = hashValue.equals(signature) ? echostr : hashValue;
+        return result;
     }
 }

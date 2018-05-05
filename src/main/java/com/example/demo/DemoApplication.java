@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class DemoApplication {
         System.out.println("echostr: " + echostr);
         String[] vec = {TOKEN, timestamp, nonce};
         Arrays.sort(vec);
-        String hashValue = DigestUtils.sha1Hex(nonce);
+        String hashValue = DigestUtils.sha1Hex(StringUtils.join(vec));
         System.out.println("hashValue: " + hashValue);
         String response = hashValue.equals(signature) ? echostr : hashValue;
         return response;

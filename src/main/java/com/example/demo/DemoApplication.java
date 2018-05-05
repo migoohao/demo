@@ -34,9 +34,14 @@ public class DemoApplication {
                            @RequestParam("nonce") String nonce,
                            @RequestParam("echostr") String echostr) {
         System.out.println("GET /certify");
+        System.out.println("signature: " + signature);
+        System.out.println("timestamp: " + timestamp);
+        System.out.println("nonce: " + nonce);
+        System.out.println("echostr: " + echostr);
         String[] vec = {TOKEN, timestamp, nonce};
         Arrays.sort(vec);
         String hashValue = DigestUtils.sha1Hex(nonce);
+        System.out.println("hashValue: " + hashValue);
         String response = hashValue.equals(signature) ? echostr : hashValue;
         return response;
     }

@@ -29,16 +29,11 @@ public class DemoApplication {
 
     @RequestMapping(value = "/certify")
     @ResponseBody
-    public String sayHello(@RequestParam("signature") String signature,
-                           @RequestParam("timestamp") String timestamp,
-                           @RequestParam("nonce") String nonce,
-                           @RequestParam("echostr") String echostr) {
+    public String certifyWechart(@RequestParam("signature") String signature,
+                                 @RequestParam("timestamp") String timestamp,
+                                 @RequestParam("nonce") String nonce,
+                                 @RequestParam("echostr") String echostr) {
         StringBuilder buff = new StringBuilder();
-        System.out.println("GET /certify");
-        System.out.println("signature: " + signature);
-        System.out.println("timestamp: " + timestamp);
-        System.out.println("nonce: " + nonce);
-        System.out.println("echostr: " + echostr);
         String[] vec = {TOKEN, timestamp, nonce};
         Arrays.sort(vec);
 
@@ -47,9 +42,7 @@ public class DemoApplication {
         }
 
         String buffString = buff.toString();
-        System.out.println(buffString);
         String hashValue = DigestUtils.sha1Hex(buffString);
-        System.out.println("hashValue: " + hashValue);
         String result = hashValue.equals(signature) ? echostr : hashValue;
         return result;
     }

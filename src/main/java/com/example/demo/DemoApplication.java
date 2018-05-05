@@ -23,6 +23,7 @@ public class DemoApplication {
     @RequestMapping(value = "/")
     @ResponseBody
     String home() {
+        System.out.println("GET :/");
         return "hello world";
     }
 
@@ -32,6 +33,7 @@ public class DemoApplication {
                            @RequestParam("timestamp") String timestamp,
                            @RequestParam("nonce") String nonce,
                            @RequestParam("echostr") String echostr) {
+        System.out.println("GET /certify");
         String[] vec = {TOKEN, timestamp, nonce};
         Arrays.sort(vec);
         String hashValue = DigestUtils.sha1Hex(nonce);

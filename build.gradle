@@ -34,6 +34,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
     compile group: 'org.json', name: 'json', version: '20180130'
+    compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

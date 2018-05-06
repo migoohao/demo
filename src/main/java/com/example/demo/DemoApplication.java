@@ -22,8 +22,9 @@ public class DemoApplication {
 
     @RequestMapping(value = "/")
     @ResponseBody
-    String home() {
-        System.out.println("GET :/");
+    String home(@RequestParam("code") String code,
+                @RequestParam("state") String state) {
+        System.out.println("GET :/ code = " + code + "; state = " + state);
         return "hello world";
     }
 

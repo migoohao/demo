@@ -21,6 +21,8 @@ public class DemoApplication {
     private static final String APPID = "?appid=wx8e82b325d4a63e6e";
     private static final String SECRET = "&secret=b84c87cd5a9d9a3f860987d4c53c7e32";
     private static final String GRANT_TYPE = "&grant_type=authorization_code";
+    private String USER_CODE = "";
+//    private String USER_ACCESS_TOKEN = "";
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
@@ -30,6 +32,10 @@ public class DemoApplication {
     @ResponseBody
     String home(@RequestParam("code") String code,
                 @RequestParam("state") String state) {
+        if(code.equals(USER_CODE)){
+           return "hello world";
+        }
+        USER_CODE = code;
         System.out.println("GET :/ code = " + code + "; state = " + state);
         RestTemplate restTemplate = new RestTemplate();
         StringBuilder urlBuff = new StringBuilder();
@@ -44,10 +50,10 @@ public class DemoApplication {
         System.out.println(result);
         JSONObject jsonResponse = new JSONObject(result);
         if(!jsonResponse.has("access_token")){
-            return "";
+            return "error";
         }
         System.out.println("access_token is :" + jsonResponse.getString("access_token"));
-        return result;
+        return "hello world";
     }
 
     @RequestMapping(value = "/certify")

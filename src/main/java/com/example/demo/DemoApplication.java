@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,11 @@ public class DemoApplication {
         System.out.println(urlBuff.toString());
         String result = restTemplate.getForObject(urlBuff.toString(), String.class);
         System.out.println(result);
+        JSONObject jsonResponse = new JSONObject(result);
+        if(!jsonResponse.has("access_token")){
+            return "";
+        }
+        System.out.println("access_token is :" + jsonResponse.getString("access_token"));
         return result;
     }
 
